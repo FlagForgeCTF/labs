@@ -1,0 +1,39 @@
+version: '2.4'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - bb-db
+
+  bb-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bb-labs
+      MYSQL_USER: bb-labs-user
+      MYSQL_PASSWORD: bb-labs-password
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  ssti-web:
+    build:
+      context: .
+      dockerfile: Dockerfile-SSTI
+    ports:
+      - "81:80"
+    volumes:
+      - ./ssti-labs:/var/www/html
+    depends_on:
+      - bb-db
+
+volumes:
+  db_data:

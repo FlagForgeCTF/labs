@@ -1,0 +1,13 @@
+{
+    "name": "alex/ssti-labs",
+    "description": "Labs for SSTI demo",
+    "authors": [
+        {
+            "name": "Alex Olsen",
+            "email": "aolsen@tcm-sec.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

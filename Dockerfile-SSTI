@@ -1,0 +1,20 @@
+FROM php:7.4-apache
+
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+RUN apt-get update && apt-get install -y git unzip
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN echo '{ "name": "my/ssti-labs", "require": {} }' > composer.json && composer require "twig/twig:^3.0" --no-interaction
+
+RUN a2enmod rewrite headers
+
+RUN echo '<VirtualHost *:80>\n\tDocumentRoot /var/www/html\n</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+COPY ./ssti-labs/ /var/www/html/
+
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 755 /var/www/html
+
+EXPOSE 80
