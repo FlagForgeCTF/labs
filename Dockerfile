@@ -15,4 +15,5 @@ RUN echo "<Directory /var/www/html>\n\tAllowOverride All\n\tRequire all granted\
 COPY . /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html
+RUN mkdir /var/www/html/labs/uploads
 RUN chmod 777 /var/www/html/labs/uploads
