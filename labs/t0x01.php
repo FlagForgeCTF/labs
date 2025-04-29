@@ -8,4 +8,4 @@ $data = array('name' => 'world'); // Default data
 $m = new Mustache_Engine;
 
 echo $m->render($template, $data);
-Twig/Autoloader.php
+// Twig/Autoloader.php
